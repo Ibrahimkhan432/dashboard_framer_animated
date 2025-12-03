@@ -1,0 +1,49 @@
+.main-nav-bar {
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  height: 56px;
+  gap: 32px;
+}
+
+.main-nav-tabs {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.nav-tab:hover {
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+}
+
+.nav-tab.active {
+  background-color: #f5f5f5;
+  color: #667eea;
+  font-weight: 500;
+}
+
+.tab-icon {
+  color: currentColor;
+}
+
+.tab-label {
+  font-size: 14px;
+}
+
