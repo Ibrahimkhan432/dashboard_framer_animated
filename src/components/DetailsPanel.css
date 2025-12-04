@@ -1,3 +1,22 @@
+.details-panel-toggle {
+  position: absolute;
+  right: -32px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 0 8px 8px 0;
+  padding: 8px 4px;
+  cursor: pointer;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .details-panel-toggle:hover {
   background: #f5f5f5;
   color: #1a1a1a;
@@ -31,6 +50,9 @@
 }
 
 .details-panel.open {
+  width: 320px;
+  min-width: 320px;
+  max-width: 320px;
   margin-right: 0;
   opacity: 1;
   transform: translateX(0);
@@ -38,11 +60,13 @@
 
 .details-panel.closed {
   width: 0;
- min-width: 0;
+  min-width: 0;
+  max-width: 0;
   opacity: 0;
   transform: translateX(100%);
   overflow: hidden;
   padding: 0;
+  margin: 0;
 }
 
 .details-panel.empty {
@@ -99,7 +123,6 @@
   font-size: 13px;
   font-weight: 600;
   color: #888;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
@@ -139,7 +162,6 @@
 .detail-label {
   font-size: 12px;
   color: #888;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 

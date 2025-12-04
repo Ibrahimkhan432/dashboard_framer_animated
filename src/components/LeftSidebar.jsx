@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronDown, MessageCircle, ChevronRight } from 'lucide-react'
+import { ChevronDown, MessageCircle, ChevronRight, Mail, List, UserX, TrendingUp, Headphones, Users, User } from 'lucide-react'
 import './LeftSidebar.css'
 
 function LeftSidebar({
@@ -16,6 +16,7 @@ function LeftSidebar({
   onToggle,
   elementsVisible = {
     inboxTitle: true,
+    myinboxItem: true,
     allItem: true,
     unassignedItem: true,
     teamsTitle: true,
@@ -42,7 +43,21 @@ function LeftSidebar({
       <div className={`left-sidebar ${isOpen ? 'open' : 'closed'}`}>
       <div className="sidebar-section">
         {elementsVisible.inboxTitle ? (
-          <div className="section-title fade-in-element">Inbox</div>
+          <div className="section-title fade-in-element">
+            <span className="sidebar-title sidebar-title-text">Inbox</span>
+          </div>
+        ) :(
+          <div className="sidebar-item skeleton-placeholder"></div>
+        )}
+        {elementsVisible.myinboxItem ? (
+          <div
+            className={`sidebar-item fade-in-element ${selectedInbox === 'myinbox' ? 'active' : ''}`}
+            onClick={() => onInboxSelect('myinbox')}
+          >
+            <User size={16} className="item-icon" fill='#010101'/>
+            <span className="item-label">My Inbox</span>
+            <span className="item-count">{inboxes.myInbox.myinbox}</span>
+          </div>
         ) : (
           <div className="section-title skeleton-placeholder"></div>
         )}
@@ -52,10 +67,11 @@ function LeftSidebar({
               className={`sidebar-item fade-in-element ${selectedInbox === 'all' ? 'active' : ''}`}
               onClick={() => onInboxSelect('all')}
             >
+              <Users size={16} className="item-icon" color='#010101' fill='#010101' stroke='#010101' />
               <span className="item-label">All</span>
               <span className="item-count">{inboxes.myInbox.all}</span>
             </div>
-          ) : (
+          )  : (
             <div className="sidebar-item skeleton-placeholder"></div>
           )}
           {elementsVisible.unassignedItem ? (
@@ -63,11 +79,11 @@ function LeftSidebar({
               className={`sidebar-item fade-in-element ${selectedInbox === 'unassigned' ? 'active' : ''}`}
               onClick={() => onInboxSelect('unassigned')}
             >
+              <UserX size={16} className="item-icon" fill='#010101'/>
               <span className="item-label">Unassigned</span>
               <span className="item-count">{inboxes.myInbox.unassigned}</span>
             </div>
-          ) : (
-            <div className="sidebar-item skeleton-placeholder"></div>
+          ) : ( <div className="sidebar-item skeleton-placeholder"></div>
           )}
         </div>
       </div>
@@ -97,6 +113,7 @@ function LeftSidebar({
                   className={`sidebar-item fade-in-element ${selectedTeam === 'Sales' ? 'active' : ''}`}
                   onClick={() => onTeamSelect('Sales')}
                 >
+                  <TrendingUp size={16} className="item-icon" />
                   <span className="item-label">Sales</span>
                   <span className="item-count">{inboxes.teams.sales}</span>
                 </div>
@@ -104,6 +121,7 @@ function LeftSidebar({
                   className={`sidebar-item fade-in-element ${selectedTeam === 'Customer Support' ? 'active' : ''}`}
                   onClick={() => onTeamSelect('Customer Support')}
                 >
+                  <Headphones size={16} className="item-icon" />
                   <span className="item-label">Customer Support</span>
                   <span className="item-count">{inboxes.teams.customerSupport}</span>
                 </div>
@@ -119,12 +137,12 @@ function LeftSidebar({
       </div>
 
       <div className="sidebar-section">
-        {elementsVisible.usersTitle ? (
+        {elementsVisible.myinboxItem ? (
           <div
             className="section-header fade-in-element"
             onClick={() => setUsersExpanded(!usersExpanded)}
           >
-            <span className="section-title">Users</span>
+            <span className="section-title">My Inbox</span>
             <ChevronDown 
               className={`expand-icon ${usersExpanded ? 'expanded' : ''}`}
               size={14}

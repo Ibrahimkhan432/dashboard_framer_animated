@@ -64,7 +64,7 @@ function LandingPage({ onTransitionComplete, onIconReachTarget }) {
             ((iconItem.id === 'inbox' && (currentAnimatingIcon === 'contacts' || phase === 'complete')) ||
              (iconItem.id === 'contacts' && phase === 'complete'))
 
-          const radius = 300
+          const radius = 250
           const angleRad = (iconItem.angle * Math.PI) / 180
           const initialX = Math.cos(angleRad) * radius
           const initialY = Math.sin(angleRad) * radius
@@ -92,7 +92,7 @@ function LandingPage({ onTransitionComplete, onIconReachTarget }) {
               return {
                 x: targetX,
                 y: targetY,
-                scale: [1, 1, 0.95],
+                scale: [1, 1, 1],
                 opacity: [1, 1, 1],
                 transition: {
                   duration: 3,
@@ -133,7 +133,7 @@ function LandingPage({ onTransitionComplete, onIconReachTarget }) {
               className="hexagon-icon"
               style={{
                 '--angle': iconItem.angle,
-                '--radius': '300px',
+                '--radius': '200px',
                 '--color': iconItem.color,
                 zIndex: isAnimating ? 1000 : 10,
               }}

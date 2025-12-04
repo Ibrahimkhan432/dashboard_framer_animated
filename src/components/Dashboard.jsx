@@ -123,6 +123,7 @@ const mockChats = [
 
 const mockInboxes = {
   myInbox: {
+    myinbox: 3,
     all: 28,
     unassigned: 5
   },
@@ -136,7 +137,7 @@ const mockInboxes = {
 
 function Dashboard({ isLoaded = false, isFullScreen = false, activatedComponents = {} }) {
   const [selectedChat, setSelectedChat] = useState(mockChats[0])
-  const [selectedInbox, setSelectedInbox] = useState('all')
+  const [selectedInbox, setSelectedInbox] = useState('myinbox')
   const [selectedTeam, setSelectedTeam] = useState(null)
   const [selectedUser, setSelectedUser] = useState(null)
   const [selectedChannel, setSelectedChannel] = useState(null)
@@ -170,7 +171,11 @@ function Dashboard({ isLoaded = false, isFullScreen = false, activatedComponents
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, inboxTitle: true }))
-        }, 300)
+        }, 200)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, myinboxItem: true }))
+        }, 400)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, allItem: true }))
@@ -178,46 +183,46 @@ function Dashboard({ isLoaded = false, isFullScreen = false, activatedComponents
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, unassignedItem: true }))
-        }, 900)
+        }, 800)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, teamsTitle: true }))
-        }, 1200)
+        }, 1000)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, teamsItems: true }))
-        }, 1500)
+        }, 1200)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, usersTitle: true }))
-        }, 1800)
+        }, 1400)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, usersItems: true }))
-        }, 2100)
+        }, 1600)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, channelsTitle: true }))
-        }, 2400)
+        }, 1800)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, channelsItems: true }))
-        }, 2700)
-      }, 2400)
+        }, 2000)
+      }, 2000)
       
       setTimeout(() => {
         setComponentsLoaded(prev => ({ ...prev, chatList: true }))
-      }, 5400)
+      }, 5000)
       
       setTimeout(() => {
         setComponentsLoaded(prev => ({ ...prev, chatPanel: true }))
-      }, 5900)
+      }, 5500)
     }
     
     if (activatedComponents.contacts) {
       setTimeout(() => {
         setComponentsLoaded(prev => ({ ...prev, details: true }))
-      }, 6400)
+      }, 2000)
     }
   }, [activatedComponents])
 
@@ -225,9 +230,14 @@ function Dashboard({ isLoaded = false, isFullScreen = false, activatedComponents
     if (isLoaded) {
       setTimeout(() => {
         setComponentsLoaded(prev => ({ ...prev, sidebar: true }))
+        
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, inboxTitle: true }))
-        }, 300)
+        }, 200)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, myinboxItem: true }))
+        }, 400)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, allItem: true }))
@@ -235,44 +245,44 @@ function Dashboard({ isLoaded = false, isFullScreen = false, activatedComponents
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, unassignedItem: true }))
-        }, 900)
+        }, 800)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, teamsTitle: true }))
-        }, 1200)
+        }, 1000)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, teamsItems: true }))
-        }, 1500)
+        }, 1200)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, usersTitle: true }))
-        }, 1800)
+        }, 1400)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, usersItems: true }))
-        }, 2100)
+        }, 1600)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, channelsTitle: true }))
-        }, 2400)
+        }, 1800)
         
         setTimeout(() => {
           setSidebarElementsVisible(prev => ({ ...prev, channelsItems: true }))
-        }, 2700)
-      }, 200)
+        }, 2000)
+      }, 300)
       
       setTimeout(() => {
         setComponentsLoaded(prev => ({ ...prev, chatList: true }))
-        }, 3000)
+      }, 2000)
       
       setTimeout(() => {
         setComponentsLoaded(prev => ({ ...prev, chatPanel: true }))
-      }, 4000)
+      }, 2500)
       
       setTimeout(() => {
         setComponentsLoaded(prev => ({ ...prev, details: true }))
-      }, 400)
+      }, 1000)
     }
   }, [isLoaded])
 
