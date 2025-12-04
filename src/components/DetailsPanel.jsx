@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronDown, ChevronLeft, User, Users, MessageCircle, Check, MapPin, Plus } from 'lucide-react'
+import { ChevronDown, ChevronLeft, User, Users, MessageCircle, Check, MapPin, Plus, PanelRight } from 'lucide-react'
 import './DetailsPanel.css'
 
 function DetailsPanel({ chat, isOpen, onToggle }) {
@@ -30,7 +30,6 @@ function DetailsPanel({ chat, isOpen, onToggle }) {
   const handleAddNote = (e) => {
     e.preventDefault()
     if (noteInput.trim()) {
-      // In a real app, this would add the note
       console.log('Adding note:', noteInput)
       setNoteInput('')
     }
@@ -38,18 +37,11 @@ function DetailsPanel({ chat, isOpen, onToggle }) {
 
   return (
     <>
-      <button 
-        className={`details-panel-toggle ${!isOpen ? 'collapsed' : ''}`}
-        onClick={onToggle}
-        title={isOpen ? 'Hide details' : 'Show details'}
-      >
-        <ChevronLeft size={18} className={isOpen ? '' : 'flipped'} />
-      </button>
       <div className={`details-panel ${isOpen ? 'open' : 'closed'}`}>
       <div className="details-header">
         <span className="details-title">Details</span>
         <button className="collapse-icon" onClick={onToggle}>
-          <ChevronLeft size={16} />
+          <PanelRight size={16} />
         </button>
       </div>
 

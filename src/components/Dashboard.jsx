@@ -1,13 +1,17 @@
-import { useState } from 'react'
-import TopNavigationBar from './TopNavigationBar'
+import { useState, useEffect } from 'react'
 import MainNavigationBar from './MainNavigationBar'
 import LeftSidebar from './LeftSidebar'
 import ChatListPanel from './ChatListPanel'
 import ChatPanel from './ChatPanel'
 import DetailsPanel from './DetailsPanel'
+import { 
+  SkeletonLeftSidebar, 
+  SkeletonChatList, 
+  SkeletonChatPanel, 
+  SkeletonDetailsPanel 
+} from './SkeletonComponents'
 import './Dashboard.css'
 
-// Mock data
 const mockChats = [
   {
     id: 1,
@@ -130,7 +134,7 @@ const mockInboxes = {
   channels: ['Fit4Life']
 }
 
-function Dashboard() {
+function Dashboard({ isLoaded = false, isFullScreen = false, activatedComponents = {} }) {
   const [selectedChat, setSelectedChat] = useState(mockChats[0])
   const [selectedInbox, setSelectedInbox] = useState('all')
   const [selectedTeam, setSelectedTeam] = useState(null)
@@ -140,6 +144,137 @@ function Dashboard() {
   const [leftSidebarOpen, setLeftSidebarOpen] = useState(true)
   const [chatListOpen, setChatListOpen] = useState(true)
   const [detailsPanelOpen, setDetailsPanelOpen] = useState(true)
+  const [componentsLoaded, setComponentsLoaded] = useState({
+    sidebar: false,
+    chatList: false,
+    chatPanel: false,
+    details: false
+  })
+
+  const [sidebarElementsVisible, setSidebarElementsVisible] = useState({
+    inboxTitle: false,
+    allItem: false,
+    unassignedItem: false,
+    teamsTitle: false,
+    teamsItems: false,
+    usersTitle: false,
+    usersItems: false,
+    channelsTitle: false,
+    channelsItems: false
+  })
+
+  useEffect(() => {
+    if (activatedComponents.sidebar) {
+      setTimeout(() => {
+        setComponentsLoaded(prev => ({ ...prev, sidebar: true }))
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, inboxTitle: true }))
+        }, 300)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, allItem: true }))
+        }, 600)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, unassignedItem: true }))
+        }, 900)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, teamsTitle: true }))
+        }, 1200)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, teamsItems: true }))
+        }, 1500)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, usersTitle: true }))
+        }, 1800)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, usersItems: true }))
+        }, 2100)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, channelsTitle: true }))
+        }, 2400)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, channelsItems: true }))
+        }, 2700)
+      }, 2400)
+      
+      setTimeout(() => {
+        setComponentsLoaded(prev => ({ ...prev, chatList: true }))
+      }, 5400)
+      
+      setTimeout(() => {
+        setComponentsLoaded(prev => ({ ...prev, chatPanel: true }))
+      }, 5900)
+    }
+    
+    if (activatedComponents.contacts) {
+      setTimeout(() => {
+        setComponentsLoaded(prev => ({ ...prev, details: true }))
+      }, 6400)
+    }
+  }, [activatedComponents])
+
+  useEffect(() => {
+    if (isLoaded) {
+      setTimeout(() => {
+        setComponentsLoaded(prev => ({ ...prev, sidebar: true }))
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, inboxTitle: true }))
+        }, 300)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, allItem: true }))
+        }, 600)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, unassignedItem: true }))
+        }, 900)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, teamsTitle: true }))
+        }, 1200)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, teamsItems: true }))
+        }, 1500)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, usersTitle: true }))
+        }, 1800)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, usersItems: true }))
+        }, 2100)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, channelsTitle: true }))
+        }, 2400)
+        
+        setTimeout(() => {
+          setSidebarElementsVisible(prev => ({ ...prev, channelsItems: true }))
+        }, 2700)
+      }, 200)
+      
+      setTimeout(() => {
+        setComponentsLoaded(prev => ({ ...prev, chatList: true }))
+        }, 3000)
+      
+      setTimeout(() => {
+        setComponentsLoaded(prev => ({ ...prev, chatPanel: true }))
+      }, 4000)
+      
+      setTimeout(() => {
+        setComponentsLoaded(prev => ({ ...prev, details: true }))
+      }, 400)
+    }
+  }, [isLoaded])
 
   const handleChatSelect = (chat) => {
     setSelectedChat(chat)
@@ -150,8 +285,6 @@ function Dashboard() {
     setSelectedTeam(null)
     setSelectedUser(null)
     setSelectedChannel(null)
-    // Filter chats based on selection
-    // In a real app, this would fetch from API
   }
 
   const handleTeamSelect = (team) => {
@@ -175,7 +308,6 @@ function Dashboard() {
     setSelectedUser(null)
   }
 
-  // Filter chats based on current selection
   const getFilteredChats = () => {
     let filtered = [...mockChats]
     
@@ -190,7 +322,6 @@ function Dashboard() {
     }
     
     if (selectedChannel) {
-      // Filter by channel if needed
     }
     
     if (selectedInbox === 'unassigned') {
@@ -203,42 +334,66 @@ function Dashboard() {
   const filteredChats = getFilteredChats()
 
   return (
-    <div className="dashboard">
+    <div className={`dashboard ${!isLoaded ? 'skeleton-visible' : ''} ${isFullScreen ? 'full-screen' : ''}`}>
       <MainNavigationBar activeTab={activeTab} setActiveTab={setActiveTab} />
-      {/* <TopNavigationBar /> */}
       
       <div className="dashboard-content">
-        <LeftSidebar
-          inboxes={mockInboxes}
-          selectedInbox={selectedInbox}
-          selectedTeam={selectedTeam}
-          selectedUser={selectedUser}
-          selectedChannel={selectedChannel}
-          onInboxSelect={handleInboxSelect}
-          onTeamSelect={handleTeamSelect}
-          onUserSelect={handleUserSelect}
-          onChannelSelect={handleChannelSelect}
-          isOpen={leftSidebarOpen}
-          onToggle={() => setLeftSidebarOpen(!leftSidebarOpen)}
-        />
+        {componentsLoaded.sidebar ? (
+          <LeftSidebar
+            inboxes={mockInboxes}
+            selectedInbox={selectedInbox}
+            selectedTeam={selectedTeam}
+            selectedUser={selectedUser}
+            selectedChannel={selectedChannel}
+            onInboxSelect={handleInboxSelect}
+            onTeamSelect={handleTeamSelect}
+            onUserSelect={handleUserSelect}
+            onChannelSelect={handleChannelSelect}
+            isOpen={leftSidebarOpen}
+            onToggle={() => setLeftSidebarOpen(!leftSidebarOpen)}
+            elementsVisible={sidebarElementsVisible}
+          />
+        ) : (
+          <SkeletonLeftSidebar />
+        )}
         <div className="main-content">
-          <ChatListPanel
-            chats={filteredChats}
-            selectedChat={selectedChat}
-            onChatSelect={handleChatSelect}
-            isOpen={chatListOpen}
-            onToggle={() => setChatListOpen(!chatListOpen)}
-          />
-          <ChatPanel 
-            chat={selectedChat}
-            onToggleChatList={() => setChatListOpen(!chatListOpen)}
-            chatListOpen={chatListOpen}
-          />
-          <DetailsPanel 
-            chat={selectedChat}
-            isOpen={detailsPanelOpen}
-            onToggle={() => setDetailsPanelOpen(!detailsPanelOpen)}
-          />
+          {componentsLoaded.chatList ? (
+            <div className="fade-in">
+              <ChatListPanel
+                chats={filteredChats}
+                selectedChat={selectedChat}
+                onChatSelect={handleChatSelect}
+                isOpen={chatListOpen}
+                onToggle={() => setChatListOpen(!chatListOpen)}
+              />
+            </div>
+          ) : (
+            <SkeletonChatList />
+          )}
+          {componentsLoaded.chatPanel ? (
+            <div className="fade-in">
+              <ChatPanel 
+                chat={selectedChat}
+                onToggleChatList={() => setChatListOpen(!chatListOpen)}
+                chatListOpen={chatListOpen}
+                detailsPanelOpen={detailsPanelOpen}
+                onToggleDetailsPanel={() => setDetailsPanelOpen(!detailsPanelOpen)}
+              />
+            </div>
+          ) : (
+            <SkeletonChatPanel />
+          )}
+          {componentsLoaded.details ? (
+            <div className="fade-in">
+              <DetailsPanel 
+                chat={selectedChat}
+                isOpen={detailsPanelOpen}
+                onToggle={() => setDetailsPanelOpen(!detailsPanelOpen)}
+              />
+            </div>
+          ) : (
+            <SkeletonDetailsPanel />
+          )}
         </div>
       </div>
     </div>

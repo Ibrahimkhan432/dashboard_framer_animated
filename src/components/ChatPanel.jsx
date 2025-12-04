@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Edit, MoreVertical, Archive, Image, Video, FileText, Smile, Mic, ChevronLeft } from 'lucide-react'
 import './ChatPanel.css'
 
-function ChatPanel({ chat, onToggleChatList, chatListOpen }) {
+function ChatPanel({ chat, onToggleChatList, chatListOpen, detailsPanelOpen, onToggleDetailsPanel }) {
   const [messageInput, setMessageInput] = useState('')
 
   if (!chat) {
@@ -16,7 +16,6 @@ function ChatPanel({ chat, onToggleChatList, chatListOpen }) {
   const handleSendMessage = (e) => {
     e.preventDefault()
     if (messageInput.trim()) {
-      // In a real app, this would send the message
       console.log('Sending message:', messageInput)
       setMessageInput('')
     }
@@ -41,6 +40,13 @@ function ChatPanel({ chat, onToggleChatList, chatListOpen }) {
         <div className="chat-header-right">
           <button className="header-icon"><MoreVertical size={18} /></button>
           <button className="header-icon"><Archive size={18} /></button>
+          <button 
+            className="header-icon toggle-details"
+            onClick={onToggleDetailsPanel}
+            title={detailsPanelOpen ? 'Hide details' : 'Show details'}
+          >
+            <ChevronLeft size={18} className={detailsPanelOpen ? '' : 'flipped'} />
+          </button>
         </div>
       </div>
 
